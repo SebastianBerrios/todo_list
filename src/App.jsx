@@ -36,20 +36,9 @@ export default function App() {
       </header>
       <main className="bg-secundary p-4 flex-grow">
         <TodoList>
-          {error === true ? (
-            <ErrorTodos />
-          ) : loading === true ? (
-            <div className="grid gap-5">
-              <LoadingTodos />
-              <LoadingTodos />
-              <LoadingTodos />
-              <LoadingTodos />
-              <LoadingTodos />
-            </div>
-          ) : searchedTodo.length === 0 ? (
+          {searchedTodo.length === 0 ? (
             <span>¡Agrega tu primer TO-DO!</span>
-          ) : (
-            searchedTodo.map((todo) => (
+          ) : searchedTodo.map((todo) => (
               <TodoItem
                 key={todo.text}
                 text={todo.text}
@@ -58,7 +47,18 @@ export default function App() {
                 onCompleted={() => completeTodo(todo.text)}
                 onDelete={() => deleteTodo(todo.text)}
               />
-            ))
+            )) ? (
+            loading
+          ) : <div className="grid gap-5">
+              <LoadingTodos />
+              <LoadingTodos />
+              <LoadingTodos />
+              <LoadingTodos />
+              <LoadingTodos />
+            </div> ? (
+            error
+          ) : (
+            <ErrorTodos />
           )}
         </TodoList>
         <CreateTodoButton setOpenModalAddTodo={setOpenModalAddTodo} />
